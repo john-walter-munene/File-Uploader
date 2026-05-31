@@ -1,0 +1,35 @@
+{
+  "dependencies": {
+    "@prisma/client": "^6.19.3",
+    "@quixo3/prisma-session-store": "^3.1.19",
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.4.2",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "express-validator": "^7.3.2",
+    "multer": "^2.1.1",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "prisma": "^6.19.3"
+  },
+  "name": "file-uploader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/john-walter-munene/File-Uploader.git"
+  },
+  "keywords": [],
+  "author": "John Walter",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/john-walter-munene/File-Uploader/issues"
+  },
+  "homepage": "https://github.com/john-walter-munene/File-Uploader#readme"
+}

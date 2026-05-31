@@ -1,0 +1,19 @@
+<div class="header-nav">
+    <div class="header-left">
+        <a href="/" class="app-link">
+            <img src="/icons/file-uploader.png" alt="File Uploader Icon">
+            <h1>File Uploader</h1>
+        </a>
+    </div>
+
+    <div class="header-right">
+        <ul>
+            <% if(!locals.currentUser) { %>
+                <li class="auth">Log In</li>
+                <li class="auth">Register</li>
+            <% } else { %>
+                <li class="auth">Log Out</li>
+            <% } %>
+        </ul>
+    </div>
+</div>
