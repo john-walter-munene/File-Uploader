@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <%- include("partials/header") %>
+    </header>
+
+    <main>
+        <% if (!locals.currentUser) { %>
+
+            <section class="welcome">
+                <h1>Welcome to File Uploader</h1>
+                <p>Upload, manage, and access your files from anywhere.</p>
+
+                <div class="cta">
+                    <a href="/login">Login</a>
+                    <a href="/register">Create Account</a>
+                </div>
+            </section>
+
+        <% } else { %>
+
+            <section class="dashboard">
+                <h1>Welcome back, <%= currentUser.username || "User" %> 👋</h1>
+
+                <p>You are logged in and ready to manage your files.</p>
+
+                <div class="actions">
+                    <a href="/upload">Upload File</a>
+                    <a href="/files">View My Files</a>
+                    <a href="/account">Account Settings</a>
+                </div>
+            </section>
+
+        <% } %>
+    </main>
+
+    <footer>
+        <%- include("partials/footer") %>
+    </footer>
+</body>
+</html>
