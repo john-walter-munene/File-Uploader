@@ -1,0 +1,165 @@
+:root {
+
+    /* colors */
+    --blue: #2563eb;
+    --blue-dark: #1d4ed8;
+    --blue-light: #dbeafe;
+
+    /* layout */
+    --bg: #f8fbff;
+    --text: #0f172a;
+    --muted: #64748b;
+    --border: #e2e8f0;
+}
+
+* {
+
+    /* reset */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+
+    /* full height layout */
+    height: 100%;
+}
+
+body {
+
+    /* sticky footer layout */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* upload page */
+
+.file-uploader {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+
+    padding: 1.25rem;
+}
+
+.file-uploader h2 {
+    font-size: 1.75rem;
+    margin-bottom: .5rem;
+}
+
+.upload-description {
+    color: var(--muted);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+/* form */
+
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+/* file picker */
+
+.file-input-wrapper {
+    background: var(--bg);
+
+    border: 2px dashed
+        var(--border);
+
+    border-radius: 16px;
+
+    padding: 1.5rem 1rem;
+
+    text-align: center;
+
+    transition: .2s ease;
+}
+
+.file-input-wrapper:hover {
+    border-color: var(--blue);
+    background:
+        var(--blue-light);
+}
+
+.file-input-wrapper input {
+    width: 100%;
+    cursor: pointer;
+}
+
+/* helper text */
+
+.file-hint {
+    margin-top: 1rem;
+
+    color: var(--muted);
+    font-size: .9rem;
+    line-height: 1.5;
+}
+
+/* selected file */
+
+.selected-file {
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+/* validation errors */
+
+.file-error {
+    margin-top: .75rem;
+
+    color: #dc2626;
+    font-size: .95rem;
+
+    min-height: 20px;
+}
+
+/* upload button */
+
+.upload-btn {
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.upload-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+/* desktop */
+
+@media (min-width: 768px) {
+
+    .file-uploader {
+        padding: 2rem;
+    }
+
+    .file-input-wrapper {
+        padding: 2rem;
+    }
+}

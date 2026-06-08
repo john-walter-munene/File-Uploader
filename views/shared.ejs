@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shared Folder</title>
+
+    <link rel="icon" href="/icons/file-uploader.png">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/shared-link.css">
+</head>
+
+<body>
+
+<header>
+    <%- include("partials/header") %>
+</header>
+
+<main>
+
+<section class="file-manager">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-section">
+            <h3>Shared Access</h3>
+            <span class="sidebar-link">🔗 Read-only Mode</span>
+        </div>
+
+        <div class="sidebar-section">
+            <h3>Root</h3>
+            <a class="sidebar-link"
+               href="/share/<%= shareToken %>">
+               📁 Shared Root
+            </a>
+        </div>
+
+    </aside>
+
+    <section class="main-view">
+
+        <div class="current-path">
+            <h2>Shared Directory</h2>
+
+            <% if (path && path.length) { %>
+                <div class="breadcrumb">
+                    <% path.forEach((item, index) => { %>
+
+                        <a class="breadcrumb-link"
+                           href="/share/<%= shareToken %>?folder=<%= item.id %>">
+                            <%= item.name %>
+                        </a>
+
+                        <% if (index < path.length - 1) { %>
+                            <span>/</span>
+                        <% } %>
+
+                    <% }) %>
+                </div>
+            <% } else { %>
+                <p>/shared</p>
+            <% } %>
+        </div>
+
+        <div class="file-grid">
+
+            <% folders.forEach(folder => { %>
+                <div class="folder-card">
+
+                    <a class="folder-main"
+                       href="/share/<%= shareToken %>?folder=<%= folder.id %>">
+
+                        <span class="card-icon">📁</span>
+                        <span class="card-name"><%= folder.name %></span>
+
+                    </a>
+
+                </div>
+            <% }) %>
+
+            <% files.forEach(file => { %>
+                <div class="file-card">
+
+                    <div class="file-main">
+                        <span class="card-icon">📄</span>
+                        <span class="card-name"><%= file.name %></span>
+                    </div>
+
+                    <div class="card-actions">
+                        <a class="icon-btn" href="/share/<%= shareToken %>/file/<%= file.id %>">⬇️</a>
+                    </div>
+
+                </div>
+            <% }) %>
+
+            <% if (!folders.length && !files.length) { %>
+                <div class="empty-state">
+                    <p>This shared folder is empty.</p>
+                </div>
+            <% } %>
+
+        </div>
+
+    </section>
+
+</section>
+
+</main>
+
+<footer>
+    <%- include("partials/footer") %>
+</footer>
+
+</body>
+</html>

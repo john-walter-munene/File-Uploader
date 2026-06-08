@@ -1,0 +1,250 @@
+:root {
+
+    /* colors */
+    --blue: #2563eb;
+    --blue-dark: #1d4ed8;
+    --blue-light: #dbeafe;
+
+    /* layout */
+    --bg: #f6f8fc; 
+    --text: #0f172a;
+    --muted: #64748b;
+    --border: #e2e8f0;
+
+    /* radius (light alignment with index system) */
+    --radius-sm: 10px;
+    --radius-md: 14px;
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100vh;
+    overflow: hidden; 
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+
+.header-nav {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+
+    padding: .75rem 1rem;
+    background: white;
+    border-bottom: 1px solid var(--border);
+}
+
+.header-left {
+    display: flex;
+    justify-content: center; /* mobile */
+}
+
+.app-link {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    text-decoration: none;
+    color: var(--text);
+}
+
+.app-link img {
+    width: 32px;
+    height: 32px;
+}
+
+.app-link h1 {
+    font-size: 1rem;
+}
+
+.header-right {
+    display: none;
+}
+
+/* MAIN (IMPORTANT FIX: prevent footer disappearing + form overflow) */
+main {
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: .75rem;
+
+    overflow: hidden;
+}
+
+/* AUTH WRAPPER */
+.auth-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* FORM (FIX: prevent register overflow) */
+.auth-form {
+    width: 100%;
+    max-width: 420px;
+
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+
+    padding: 1rem;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.08);
+
+    /* FIX: prevents last name row overflow */
+    overflow: hidden;
+}
+
+/* TITLE */
+.auth-form h1 {
+    margin-bottom: .8rem;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+/* INPUTS */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: .6rem;
+    min-width: 0; /* FIX: prevents flex overflow */
+}
+
+/* FIX: register name row overflow issue */
+.name-row {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    width: 100%;
+}
+
+label {
+    margin-bottom: .3rem;
+    font-weight: bold;
+    font-size: .85rem;
+}
+
+input {
+    width: 100%;
+    padding: .55rem;
+
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: .9rem;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--blue);
+}
+
+/* hidden helper text */
+small {
+    display: none;
+    margin-top: .2rem;
+    color: var(--muted);
+    font-size: .75rem;
+}
+
+/* BUTTON */
+.btn {
+    display: block;
+    width: 100%;
+    padding: .75rem;
+
+    border-radius: 10px;
+    text-align: center;
+
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.primary {
+    background: var(--blue);
+    color: white;
+}
+
+.primary:hover {
+    background: var(--blue-dark);
+}
+
+/* ERRORS */
+.error-container {
+    background: #fee2e2;
+    padding: .7rem;
+    border-radius: 8px;
+    margin-bottom: .8rem;
+}
+
+.error-list {
+    list-style: none;
+    color: #b91c1c;
+    font-size: .85rem;
+}
+
+/* SWITCH */
+.auth-switch {
+    text-align: center;
+    margin-top: .8rem;
+    color: var(--muted);
+    font-size: .85rem;
+}
+
+.auth-switch a {
+    color: var(--blue);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* FOOTER */
+.footer {
+    text-align: center;
+    padding: .75rem;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: .85rem;
+}
+
+/* DESKTOP */
+@media (min-width: 768px) {
+
+    /* FIX: restore header alignment ONLY on desktop */
+    .header-nav {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: .75rem 1.5rem;
+    }
+
+    .header-left {
+        justify-content: flex-start;
+    }
+
+    /* FIX: side-by-side inputs safely */
+    .name-row {
+        flex-direction: row;
+    }
+
+    .name-row .input-group {
+        flex: 1;
+        min-width: 0;
+    }
+}

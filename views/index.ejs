@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Document</title>
+    <title>File Uploader</title>
+    <link rel="icon" href="/icons/file-uploader.png" type="image/png" >
+    <link rel="stylesheet" href="/css/index.css" >
 </head>
 <body>
+
     <header>
         <%- include("partials/header") %>
     </header>
 
     <main>
+
         <% if (!locals.currentUser) { %>
 
             <section class="welcome">
@@ -19,30 +23,174 @@
                 <p>Upload, manage, and access your files from anywhere.</p>
 
                 <div class="cta">
-                    <a href="/login">Login</a>
-                    <a href="/register">Create Account</a>
+                    <a class="btn primary" href="/login">Login</a>
+                    <a class="btn secondary" href="/register">Create Account</a>
                 </div>
             </section>
 
         <% } else { %>
 
-            <section class="dashboard">
-                <h1>Welcome back, <%= currentUser.username || "User" %> 👋</h1>
+            <section class="file-manager">
 
-                <p>You are logged in and ready to manage your files.</p>
+                <aside class="sidebar">
 
-                <div class="actions">
-                    <a href="/upload">Upload File</a>
-                    <a href="/files">View My Files</a>
-                    <a href="/account">Account Settings</a>
-                </div>
+                    <div class="sidebar-section">
+
+                        <h3>Storage</h3>
+
+                        <% if (folder) { %>
+                            <a class="btn primary" href="/folders/<%= folder.id %>/new">+ New Folder</a>
+                            <a class="btn secondary" href="/files/upload/<%= folder.id %>">↑ Upload File</a>
+                        <% } %>
+
+                    </div>
+
+                    <div class="sidebar-section">
+
+                        <h3>Home Directory</h3>
+
+                        <% if (rootFolder) { %>
+                            <a href="/folders/<%= rootFolder.id %>" class="sidebar-link">📁 <%= rootFolder.name %></a>
+                        <% } %>
+
+                    </div>
+
+                </aside>
+
+                <section class="main-view">
+
+                    <div class="current-path">
+
+                        <h2>Current Directory</h2>
+
+                        <% if (path && path.length) { %>
+
+                            <div class="breadcrumb">
+                                
+                                <% path.forEach((item, index) => { %>
+
+                                    <a href="/folders/<%= item.id %>" class="breadcrumb-link">
+                                        <%= item.name %>
+                                    </a>
+
+                                    <% if (index < path.length - 1) { %>
+                                        <span>/</span>
+                                    <% } %>
+
+                                <% }) %>
+
+                            </div>
+
+                        <% } else { %>
+
+                            <p>/root</p>
+
+                        <% } %>
+
+                        <!-- SHARE ACTION (NEW) -->
+                        <% if (folder) { %>
+                            <div class="share-action">
+
+                                <form id="shareForm" action="/share/folder/<%= folder.id %>" method="POST">
+
+                                    <select name="duration" class="share-select">
+                                        <option value="1">1 day</option>
+                                        <option value="3">3 days</option>
+                                        <option value="7">7 days</option>
+                                        <option value="10">10 days</option>
+                                        <option value="30">30 days</option>
+                                    </select>
+
+                                    <button type="submit" class="icon-btn share-btn">
+                                        🔗 Share Folder
+                                    </button>
+
+                                </form>
+
+                            </div>
+                        <% } %>
+
+                    </div>
+
+                    </div>
+
+                    <div class="file-grid">
+
+                        <% if ((folders && folders.length) || (files && files.length)) { %>
+
+                            <!-- folders -->
+                            <% folders.forEach(folder => { %>
+
+                                <div class="folder-card">
+
+                                    <a href="/folders/<%= folder.id %>" class="folder-main">
+                                        <span class="card-icon">📁</span>
+                                        <span class="card-name"><%= folder.name %></span>
+                                    </a>
+
+                                    <div class="card-actions">
+
+                                        <a href="/folders/<%= folder.id %>/edit" class="icon-btn">✏️</a>
+
+                                        <form action="/folders/<%= folder.id %>/delete" method="POST" class="icon-form">
+                                            <button type="submit" class="icon-btn danger">🗑</button>
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+                            <% }) %>
+
+                            <!-- files -->
+                            <% files.forEach(file => { %>
+
+                                <div class="file-card">
+
+                                    <a href="/files/<%= file.id %>" class="file-main">
+
+                                        <span class="card-icon">📄</span>
+                                        <span class="card-name"><%= file.name %></span>
+
+                                    </a>
+
+                                    <div class="card-actions">
+
+                                        <a href="/files/<%= file.id %>/download" class="icon-btn">⬇️</a>
+
+                                        <a href="/files/<%= file.id %>/edit" class="icon-btn">✏️</a>
+
+                                        <form action="/files/<%= file.id %>/delete" method="POST" class="icon-form">
+                                            <button type="submit" class="icon-btn danger">🗑</button>
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+                            <% }) %>
+
+                        <% } else { %>
+
+                            <div class="empty-state">
+                                <p>No files or folders yet.</p>
+                            </div>
+
+                        <% } %>
+
+                    </div>
+
+                </section>
+
             </section>
 
         <% } %>
+
     </main>
 
     <footer>
         <%- include("partials/footer") %>
     </footer>
+
 </body>
 </html>

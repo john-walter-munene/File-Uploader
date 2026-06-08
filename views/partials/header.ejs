@@ -8,11 +8,21 @@
 
     <div class="header-right">
         <ul>
-            <% if(!locals.currentUser) { %>
-                <li class="auth">Log In</li>
-                <li class="auth">Register</li>
+            <% if (!locals.currentUser) { %>
+                <li class="auth">
+                    <a href="/login">Log In</a>
+                </li>
+                <li class="auth">
+                    <a href="/register">Register</a>
+                </li>
             <% } else { %>
-                <li class="auth">Log Out</li>
+                <li class="auth">
+                    <form action="/logout" method="POST" style="display:inline;">
+                        <button type="submit" style="all: unset; cursor: pointer;">
+                            Log Out
+                        </button>
+                    </form>
+                </li>
             <% } %>
         </ul>
     </div>
