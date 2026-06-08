@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Upload</title>
+
+    <link rel="icon" href="/icons/file-uploader.png" type="image/png">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/upload.css">
+    <script src="/js/upload.js" defer></script>
+</head>
+
+<body>
+
+    <header>
+        <%- include("partials/header") %>
+    </header>
+
+    <main>
+
+        <% if (!locals.currentUser) { %>
+
+            <section class="welcome">
+                <h1>Welcome to File Uploader</h1>
+
+                <p>
+                    Upload, manage, and access your files
+                    from anywhere.
+                </p>
+
+                <div class="cta">
+                    <a class="btn primary" href="/login">Login</a>
+                    <a class="btn secondary" href="/register">Create Account</a>
+                </div>
+            </section>
+
+        <% } else { %>
+
+            <section class="file-manager">
+                <div class="file-uploader">
+                    <h2>Upload a File</h2>
+                    <p class="upload-description">Choose a file to upload securely to your account.</p>
+
+                    <form class="upload-form" action="/files/upload/<%=folder.id %>" method="POST" enctype="multipart/form-data" >
+
+                        <div class="form-group">
+
+                            <label for="document">Select File</label>
+
+                            <div class="file-input-wrapper">
+
+                                <input type="file" id="document" name="document" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx" required>
+
+                                <p class="file-hint">
+                                    Accepted:
+                                    PDF, PNG, JPG,
+                                    DOC, DOCX
+                                    <br>
+                                    Maximum size: 5MB
+                                </p>
+
+                                <p id="selected-file" class="selected-file">No file selected</p>
+
+                                <p id="file-error" class="file-error" ></p>
+                            </div>
+                        </div>
+
+                        <button id="upload-btn" class="btn primary upload-btn" type="submit" >Upload File</button>
+                    </form>
+                </div>
+            </section>
+        <% } %>
+    </main>
+
+    <footer>
+        <%- include("partials/footer") %>
+    </footer>
+
+</body>
+</html>

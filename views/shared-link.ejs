@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Share Link Created</title>
+
+    <link rel="icon" href="/icons/file-uploader.png" type="image/png">
+    <link rel="stylesheet" href="/css/shared-link.css">
+</head>
+
+<body>
+
+<header>
+    <%- include("partials/header") %>
+</header>
+
+<main>
+
+    <section class="share-container">
+
+        <div class="share-card">
+
+            <h1>Folder Shared Successfully 🎉</h1>
+
+            <p class="subtitle">
+                Anyone with this link can access this folder until it expires.
+            </p>
+
+            <div class="link-box">
+                <input
+                    id="shareLink"
+                    type="text"
+                    readonly
+                    value="<%= fullLink %>"
+                >
+            </div>
+
+            <div class="actions">
+
+                <button class="btn primary" onclick="copyLink()">
+                    📋 Copy Link
+                </button>
+
+                <a class="btn secondary" href="/folders/<%= folderId %>">
+                    ← Back to Folder
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    <%- include("partials/footer") %>
+</footer>
+
+<script>
+    function copyLink() {
+        const input = document.getElementById("shareLink");
+        input.select();
+        input.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(input.value);
+
+        alert("Link copied!");
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= file.name %></title>
+    <link rel="icon" href="/icons/file-uploader.png" type="image/png">
+    <link rel="stylesheet" href="/css/file.css">
+</head>
+
+<body>
+
+    <header>
+        <%- include("partials/header") %>
+    </header>
+
+    <main>
+
+        <section class="file-manager">
+
+            <aside class="sidebar">
+
+                <div class="sidebar-section">
+
+                    <h3>Navigation</h3>
+
+                    <% if (parentFolder) { %>
+                        <a  class="btn primary" href="/folders/<%= parentFolder.id %>">← Back to Folder</a>
+                    <% } %>
+                    <a class="btn secondary" href="/" >← Main Directory</a>
+
+                </div>
+
+            </aside>
+
+            <section class="main-view">
+
+                <div class="current-path">
+                    <h2>File Details</h2>
+                    <p><%= file.name %></p>
+
+                </div>
+
+                <div class="file-detail-card">
+                    <div class="file-header">
+                        <span class="card-icon">📄</span>
+
+                        <div>
+                            <h3 class="file-title"><%= file.name %></h3>
+                            <p class="file-subtitle"><%= file.mimetype %></p>
+                        </div>
+
+                    </div>
+
+                    <div class="file-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">File Name</span>
+                            <span class="meta-value"><%= file.name %></span>
+
+                        </div>
+
+                        <div class="meta-row">
+                            <span class="meta-label">File Type</span>
+                            <span class="meta-value"><%= file.mimetype %></span>
+                        </div>
+
+                        <div class="meta-row">
+                            <span class="meta-label">File Size</span>
+                            <span class="meta-value"><%= (file.size / 1024).toFixed(2) %> KB</span>
+                        </div>
+
+                        <div class="meta-row">
+                            <span class="meta-label">Created At</span>
+                            <span class="meta-value"><%= new Date(file.created_at).toDateString() %></span>
+                        </div>
+
+                    </div>
+
+                    <div class="file-actions">
+
+                        <a href="/files/<%= file.id %>/download" class="icon-btn">⬇ Download</a>
+                        <a href="/files/<%= file.id %>/edit" class="icon-btn">✏ Edit</a>
+
+                        <form action="/files/<%= file.id %>/delete" method="POST" class="icon-form" >
+                            <button type="submit" class="icon-btn danger">🗑 Delete</button>
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <%- include("partials/footer") %>
+    </footer>
+
+</body>
+</html>

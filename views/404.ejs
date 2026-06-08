@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+
+    <link rel="icon" href="/icons/file-uploader.png" type="image/png">
+    <link rel="stylesheet" href="/css/404.css">
+</head>
+
+<body>
+
+<header>
+    <%- include("partials/header") %>
+</header>
+
+<main>
+
+    <section class="error-container">
+
+        <div class="error-card">
+
+            <div class="error-code">
+                404
+            </div>
+
+            <h1>Page Not Found</h1>
+
+            <p class="subtitle">
+                The page you are looking for doesn’t exist,
+                may have expired, or the link may be invalid.
+            </p>
+
+            <div class="actions">
+
+                <% if (locals.currentUser) { %>
+
+                    <a class="btn primary" href="/">
+                        🏠 Go Home
+                    </a>
+
+                <% } else { %>
+
+                    <a class="btn primary" href="/login">
+                        Login
+                    </a>
+
+                    <a class="btn secondary" href="/">
+                        Home
+                    </a>
+
+                <% } %>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    <%- include("partials/footer") %>
+</footer>
+
+</body>
+</html>

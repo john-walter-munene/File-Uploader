@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><%= folder ? "Edit Folder" : "New Folder" %></title>
+
+    <link rel="icon" href="/icons/file-uploader.png" type="image/png">
+    <link rel="stylesheet" href="/css/new.css">
+</head>
+<body>
+    <header>
+        <%- include("partials/header") %>
+    </header>
+
+    <main>
+
+        <% if (!locals.currentUser) { %>
+
+        <section class="welcome">
+            <h1>Please login</h1>
+            <div class="cta">
+                <a class="btn primary" href="/login">Login</a>
+            </div>
+        </section>
+
+        <% } else { %>
+
+        <section class="file-manager">
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3>Navigation</h3>
+                    <a class="sidebar-link" href="/">← Back to Home</a>
+                    <% if (parentFolder) { %>
+                        <a class="sidebar-link" href="/folders/<%= parentFolder.id %>">← Back to Folder</a>
+                    <% } %>
+                </div>
+            </aside>
+
+            <section class="main-view">
+                <div class="current-path">
+                    <h2><%= folder ? "Edit Folder" : "Create New Folder" %></h2>
+                    <p><%= folder ? "Update folder name" : "Enter a folder name" %></p>
+                </div>
+
+                <form method="POST"  class="form-box" 
+                    action="<%= folder ? `/folders/${folder.id}/edit` : `/folders/${parentFolder.id}` %>">
+
+                    <input type="hidden" name="parentId" value="<%= parentFolder ? parentFolder.id : '' %>">
+
+                    <div class="form-group">
+                        <label>Folder Name</label>
+
+                        <input type="text" name="name" placeholder="e.g Documents" 
+                            value="<%= folder ? folder.name : '' %>" required >
+                    </div>
+
+                    <button type="submit" class="btn primary full">
+                        <%= folder ? "Update Folder" : "Create Folder" %>
+                    </button>
+                </form>
+            </section>
+        </section>
+        <% } %>
+    </main>
+
+    <footer>
+        <%- include("partials/footer") %>
+    </footer>
+</body>
+</html>

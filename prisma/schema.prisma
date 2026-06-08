@@ -13,8 +13,64 @@ model User {
   first_name    String
   last_name     String
   password_hash String
+
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
+
+  folders       Folder[]
+  files         File[]
+}
+
+model Folder {
+  id         Int      @id @default(autoincrement())
+  name       String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  user_id    Int
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  parent_id  Int?
+  parent     Folder?  @relation("FolderTree", fields: [parent_id], references: [id], onDelete: Cascade)
+
+  children   Folder[] @relation("FolderTree")
+  files      File[]
+  shares     Share[]
+
+  @@index([user_id])
+  @@index([parent_id])
+}
+
+model File {
+  id         Int      @id @default(autoincrement())
+
+  name       String
+  path       String
+  mimetype   String?
+  size       Int?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  user_id    Int
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  folder_id  Int
+  folder     Folder   @relation(fields: [folder_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@index([folder_id])
+}
+
+model Share {
+  id         Int      @id @default(autoincrement())
+  token      String   @unique
+  folder_id  Int
+  expires_at DateTime
+  created_at DateTime @default(now())
+
+  folder     Folder   @relation(fields: [folder_id], references: [id])
 }
 
 model Session {
